@@ -7,9 +7,17 @@ import {
   FlatList,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
+import firebase from "../database/firebaseDB";
 
 export default function NotesScreen({ navigation, route }) {
   const [notes, setNotes] = useState([]);
+
+  firebase.firestore().collection("testing").add({
+    title: "Testing! Does this work???",
+    body: "This is to check the integration is working",
+    potato: true,
+    question: "Why is there a potato bool here",
+  });
 
   // This is to set up the top right button
   useEffect(() => {
