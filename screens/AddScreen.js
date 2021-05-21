@@ -40,7 +40,7 @@ export default function AddScreen({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#ffc",
+    backgroundColor: "#fafad2",
     alignItems: "center",
     justifyContent: "center",
   },
