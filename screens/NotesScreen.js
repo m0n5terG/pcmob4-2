@@ -9,22 +9,27 @@ import {
 import { Ionicons } from "@expo/vector-icons";
 import firebase from "../database/firebaseDB";
 
+const db = firebase.firestore().collection("Todos");
+
 export default function NotesScreen({ navigation, route }) {
   const [notes, setNotes] = useState([]);
 
   useEffect(() => {
-    const unsubscribe = firebase
-    .firestore()
-    .collection("Todos")
-    .onSnapshot((collection) => {
-     const updatedNotes = collection.docs.map((doc) => doc.data());
+    const unsubscribe = db.orderBy("created").onSnapshot((collection) => {
+      const updatedNotes = collection.docs.map((doc) => {
+        const noteObject = {
+          ...doc.data(),
+          id: doc.id,
+        };
+        console.log(noteObject);
+        return noteObject;
+      });
+     
      setNotes(updatedNotes); // And set our notes stat array to its docs
   });
   
   // Unsubscribe when unmounting
-  return () => {
-    unsubscribe();      
-  };
+  return unsubscribe;      
 }, []);
 
   /*firebase.firestore().collection("testing").add({
@@ -59,9 +64,9 @@ export default function NotesScreen({ navigation, route }) {
       const newNote = {
         title: route.params.text,
         done: false,
-        id: notes.length.toString(),
+        created: firebase.firestore.FieldValue.serverTimestamp(),
       };
-      firebase.firestore().collection("Todos").add(newNote);
+      db.add(newNote);
     }
   }, [route.params?.text]);
 
@@ -72,8 +77,7 @@ export default function NotesScreen({ navigation, route }) {
   // This deletes an individual note
   function deleteNote(id) {
     console.log("Deleting " + id);
-    // To delete that item, we filter out the item we don't want
-    setNotes(notes.filter((item) => item.id !== id));
+  db.doc(id).delete();
   }
 
   // The function to render each row in our FlatList
