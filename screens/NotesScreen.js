@@ -12,12 +12,27 @@ import firebase from "../database/firebaseDB";
 export default function NotesScreen({ navigation, route }) {
   const [notes, setNotes] = useState([]);
 
-  firebase.firestore().collection("testing").add({
+  useEffect(() => {
+    const unsubscribe = firebase
+    .firestore()
+    .collection("Todos")
+    onSnapshot((collection) => { // Lets's get back a snapshot of this collection }
+     const undateNotes = collection.doc.map((doc) => doc.data());
+     setNotes(updatedNotes); // And set our notes stat array to its docs
+  });
+
+  // Unsubscribe when unmounting
+  return () => {
+    unsubscribe();
+  };
+}, []);
+
+  /*firebase.firestore().collection("testing").add({
     title: "Testing! Does this work???",
     body: "This is to check the integration is working",
     potato: true,
     question: "Why is there a potato bool here",
-  });
+  });*/
 
   // This is to set up the top right button
   useEffect(() => {
