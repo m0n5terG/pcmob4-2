@@ -85,18 +85,28 @@ export default function NotesScreen({ navigation, route }) {
     return (
       <View
         style={{
-          padding: 10,
-          paddingTop: 20,
-          paddingBottom: 20,
-          borderBottomColor: "#ccc",
-          borderBottomWidth: 1,
           flexDirection: "row",
-          justifyContent: "space-between",
+          justifyContent: "center",
+          paddingTop: 15,
+          width: "auto",
         }}
       >
-        <Text>{item.title}</Text>
-        <TouchableOpacity onPress={() => deleteNote(item.id)}>
-          <Ionicons name="trash" size={16} color="#944" />
+        <TouchableOpacity style={styles.listContainer}>
+          <View
+            style={{
+              flexWrap: "wrap",
+              width: 330,
+              paddingLeft: 20,
+            }}
+          >
+            <Text style={{ textAlign: "left", fontSize: 16, paddingTop: 10, paddingBottom: 5 }}>
+              {item.title}
+            </Text>
+            <Text style={{ fontSize: 10, paddingBottom: 10, color: "red" }}>Task</Text>
+          </View>
+          <TouchableOpacity onPress={() => deleteNote(item.id)}>
+            <Ionicons name="trash" size={24} color="blue" />
+          </TouchableOpacity>
         </TouchableOpacity>
       </View>
     );
@@ -117,8 +127,17 @@ export default function NotesScreen({ navigation, route }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#ffc",
+    backgroundColor: "lightblue",
     alignItems: "center",
     justifyContent: "center",
+  },
+  listContainer: {
+    backgroundColor: "whitesmoke",
+    height: "auto",
+    borderRadius: 10,
+    paddingRight: 10,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
   },
 });
