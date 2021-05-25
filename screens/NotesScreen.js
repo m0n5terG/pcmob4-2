@@ -91,7 +91,7 @@ export default function NotesScreen({ navigation, route }) {
           width: "auto",
         }}
       >
-        <TouchableOpacity style={styles.listContainer}>
+        <View style={styles.listContainer}>
           <View
             style={{
               flexWrap: "wrap",
@@ -107,7 +107,7 @@ export default function NotesScreen({ navigation, route }) {
           <TouchableOpacity onPress={() => deleteNote(item.id)}>
             <Ionicons name="trash" size={24} color="blue" />
           </TouchableOpacity>
-        </TouchableOpacity>
+        </View>
       </View>
     );
   }
