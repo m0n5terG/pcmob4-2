@@ -64,7 +64,7 @@ export default function NotesScreen({ navigation, route }) {
       const newNote = {
         title: route.params.text,
         done: false,
-        created: firebase.firestore.FieldValue.serverTimestamp(),
+        created: Date.now().toString(),
       };
       db.add(newNote);
     }
@@ -102,7 +102,7 @@ export default function NotesScreen({ navigation, route }) {
             <Text style={{ textAlign: "left", fontSize: 16, paddingTop: 10, paddingBottom: 5 }}>
               {item.title}
             </Text>
-            <Text style={{ fontSize: 10, paddingBottom: 10, color: "red" }}>{item.created.toDate().toDateString()}</Text>
+            <Text style={{ fontSize: 10, paddingBottom: 10, color: "red" }}>{item.created}</Text>
           </View>
           <TouchableOpacity onPress={() => deleteNote(item.id)}>
             <Ionicons name="trash" size={24} color="blue" />
