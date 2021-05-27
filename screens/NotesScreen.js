@@ -32,13 +32,6 @@ export default function NotesScreen({ navigation, route }) {
   return unsubscribe;      
 }, []);
 
-  /*firebase.firestore().collection("testing").add({
-    title: "Testing! Does this work???",
-    body: "This is to check the integration is working",
-    potato: true,
-    question: "Why is there a potato bool here",
-  });*/   
-
   // This is to set up the top right button
   useEffect(() => {
     navigation.setOptions({
@@ -64,7 +57,7 @@ export default function NotesScreen({ navigation, route }) {
       const newNote = {
         title: route.params.text,
         done: false,
-        created: Date.now().toString(),
+        created: new Date().toDateString(),
       };
       db.add(newNote);
     }
